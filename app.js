@@ -27,7 +27,8 @@ app.locals.truncatePost = truncatePost;
 
 
  //* configure ejs
- app.set("view engine", "ejs");
+ app.set('views engine', "ejs", (__dirname, '/VIEWS'));
+ //app.set("view engine", "ejs");
  //* server static files
  app.use(express.static(__dirname, + "/PUBLIC"));
 
