@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Fontawesome CDN (latest version) -->
+  <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+/>
+
+
+<!-- Google font -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=Roboto:wght@400;500&display=swap"
+rel="stylesheet"
+/>
+
+    <link rel="stylesheet" href="/PUBLIC/CSS/style.css" />
+    <link rel="icon" type="image/png" 
+    href="/PUBLIC/IMAGES/blog-logo.png">
+    <title>Bloghub</title>
+
+    <style>
+      .back-to-home {
+        padding: 10px 20px;
+        text-decoration: none;
+        background-color: black;
+        color: white;
+        border-radius: 33px;
+        border: 2px solid transparent;
+        box-shadow: 0px 5px 7px rgba(0,0,0,0.5);
+        transition: background 0.3s ease-out;
+      }
+      .back-to-home:hover {
+        background-color: rgb(70, 70, 70);
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="latest-post-title">
+      <h1>Explore Posts  
+      </h1>
+      <a href="/" class="back-to-home">Back to home</a>
+    </div>
+     <!-- content -->
+     <section class="container-flex">
+      <%if(posts?.length <=0){ %>
+        <h2>No Post Found!</h2>
+        <%}else{%> <%posts?.forEach((post)=>{%>  
+      <article class="post-content">
+        <img src="<%=post?.image%>" alt="" class="post-image" />
+        <p class="post-info">
+          <span class="post-author">
+            <i class="fas fa-user"></i>
+            <a href="#">
+             <%=post?.user?.fullname%>
+            </a>
+          </span>
+          <span class="post-date">
+            <i class="far fa-calendar-alt"></i>
+            <time datetime="2020-01-01">
+              <%=post?.createdAt.toDateString()%>
+            </time>
+          </span>
+        </p>
+        <h1 class="post-title"> 
+          <%=post?.title%>
+        </h1>
+        <p class="post-body">
+          <%=truncatePost(post?.description)%>
+        </p>
+        <div class="post-category">
+          <span>Category:<%=post?.category%> </span>
+        </div>
+        <a href="/api/v1/posts/<%=post?._id%>" 
+        class="post-read-more">View Post</a>
+      </article>
+      <% })%> <%}%>
+     </section>
+     <!--footer-->
+     <%- include("../PARTIALS/footer.ejs")%>
+  </body>
+</html>

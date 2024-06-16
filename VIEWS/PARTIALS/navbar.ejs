@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" 
+    href="/PUBLIC/IMAGES/blog-logo.png">
+    <title>Bloghub</title>
+    <!-- Fontawesome CDN -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+        integrity="sha512-Fo3rlrZj/kTc+7iJ3Ph6d6tqGo7sAc5syHkG7zb9ItvFJ6JtK70eA5uO1WWv7gACsVX0i/bdp9yfuk2oH1al7A=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+    />
+    <!-- Google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=Roboto:wght@400;500&display=swap"
+        rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha384-GfBnuBFEWiPJOeg1O8UKFcRQ+Mztq2Bc40kjLd4rFwc4JNp5sKEPLX6qF5qFP+hR" />
+
+    <link rel="stylesheet" href="/PUBLIC/CSS/style.css" />
+
+</head>
+<body>
+    <nav>
+        <div class="nav-logo">
+            <img src="/PUBLIC/IMAGES/blog-logo.png" alt="logo" />
+            <b>bloghub</b>
+        </div>
+        <div class="hamburger-menu">
+            <span class="open-menu" style="font-size: 25px;">&#9776;</span>
+            <span class="close-menu hidden" style="font-size: 25px;">&#10006;</span>
+        </div>
+        <ul class="nav-links">
+            <% if (userAuth) { %>
+            <li><a href="/">Home</a></li>
+
+            <li><a href="/api/v1/posts/all-posts">Posts</a></li>
+
+            <li><a href="/api/v1/users/profile-page">My Profile</a></li>
+
+            <li><a href="#" id="logoutBtn" 
+       style="background-color: red; color: white; 
+       border-radius: 25px; font-size: 22px; padding: 0.5rem 1rem;
+       border: 1px solid red;"
+       class="create-post-btn">Logout</a></li>
+
+        <li><a href="/api/v1/posts/add-post-form" 
+            style="background-color: orange; color: white; 
+       border-radius: 25px; font-size: 22px; padding: 0.5rem 1rem;
+       border: 1px solid orange;"
+            class="create-post-btn">Add Post</a></li>
+
+            <li><a href="#">Help</a></li>
+
+            <% } else { %>
+                
+            <li><a href="/">Home</a></li>
+            <li><a href="/api/v1/posts/all-posts">Posts</a></li>
+            <li><a href="/api/v1/users/login">Login</a></li>
+            <li><a href="/api/v1/users/register">Register</a></li>
+            <li><a href="#">Help</a></li>
+            <% } %>
+        </ul>
+    </nav>
+
+    <div class="loader" id="loader"></div>
+    <div class="backdrop" id="backdrop"></div>
+
+    <script>
+        const hamburgerMenu = document.querySelector('.hamburger-menu');
+        const navLinks = document.querySelector('.nav-links');
+        const openMenuIcon = document.querySelector('.open-menu');
+        const closeMenuIcon = document.querySelector('.close-menu');
+        const backdrop = document.querySelector('#backdrop');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const loader = document.getElementById('loader');
+        
+
+        hamburgerMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('nav-active');
+            openMenuIcon.classList.toggle('hidden');
+            closeMenuIcon.classList.toggle('hidden');
+            backdrop.classList.toggle('hidden');
+        });
+
+        backdrop.addEventListener('click', () => {
+            navLinks.classList.remove('nav-active');
+            openMenuIcon.classList.remove('hidden');
+            closeMenuIcon.classList.add('hidden');
+            backdrop.classList.add('hidden');
+        });
+
+        logoutBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            loader.style.display = 'block';
+            setTimeout(() => {
+                window.location.href = '/api/v1/users/logout';
+            }, 3000);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+{
+  "name": "full-stack-blog-project",
+  "version": "1.0.0",
+  "description": "My Blog Project!",
+  "main": "app.js",
+  "scripts": {
+    "serve": "nodemon app.js",
+    "start": "node app.js"
+  },
+  "keywords": [
+    "blog project",
+    "node js",
+    "ejs template",
+    "express",
+    "mongodb"
+  ],
+  "author": "donmania999",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cloudinary": "^1.41.3",
+    "connect-mongo": "^5.1.0",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "method-override": "^3.0.0",
+    "mongoose": "^8.4.1",
+    "multer": "^1.4.5-lts.1",
+    "multer-storage-cloudinary": "^4.0.0",
+    "nodemon": "^3.1.2"
+  }
+}
