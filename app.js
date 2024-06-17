@@ -1,5 +1,4 @@
 require("dotenv").config();
-require("./CONFIG/db");
 const express = require ("express");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
@@ -11,12 +10,18 @@ const globalErrHandler = require("./MIDDLEWARES/globalErrHandler");
 const Post = require("./MODELS/post/Post");
 const { truncatePost } = require("./UTILS/helpers");
 
-
+require("./CONFIG/db");
 
 const app = express();
 
 //* helpers
 app.locals.truncatePost = truncatePost;
+
+//* configure ejs
+app.set("view engine", "ejs");
+app.set("views", __dirname + "/views");
+//* server static files
+app.use(express.static(__dirname, + "/PUBLIC"));
 
 //* middlewares
  app.use(express.json());
@@ -25,12 +30,6 @@ app.locals.truncatePost = truncatePost;
  //* method override
  app.use(methodOverride("_method"));
 
-
- //* configure ejs
- app.set('views engine', "ejs", (__dirname, '/VIEWS'));
- //app.set("view engine", "ejs");
- //* server static files
- app.use(express.static(__dirname, + "/PUBLIC"));
 
  //* use session
  app.use(
@@ -59,9 +58,9 @@ app.locals.truncatePost = truncatePost;
 app.get('/', async (req, res) => {
      try {
       const posts = await Post.find().populate("user");
-     res.render('index.ejs', {posts});
+     res.render("index", {posts});
      } catch(error) {
-          res.render("index.ejs", {error: error.message});
+          res.render("index", {error: error.message});
      };
 });
 

@@ -4,7 +4,7 @@
   "description": "My Blog Project!",
   "main": "app.js",
   "scripts": {
-    "serve": "nodemon app.js",
+    "server": "nodemon app.js",
     "start": "node app.js"
   },
   "keywords": [
